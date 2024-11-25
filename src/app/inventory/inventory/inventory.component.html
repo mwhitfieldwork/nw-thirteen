@@ -1,1 +1,27 @@
 <p>inventory works!</p>
+
+<div class="stock-inventory">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <app-stock-branch
+        [parent]="form">
+        </app-stock-branch>
+
+        <app-stock-selector
+        [parent]="form"
+        [products$]="products$"
+        (added)="addStock($event)">
+        </app-stock-selector>
+
+        <app-stock-products
+        [parent]="form"
+        (removed)="removeStock($event)">
+        </app-stock-products>
+
+        <div class="stock-inventory__buttons">
+            <button type="submit" 
+                [disabled]="form.invalid" 
+                class="btn btn-primary">Order Stock</button>
+        </div>
+        <pre>{{form.value | json}}</pre>
+    </form>
+</div>
