@@ -39,9 +39,8 @@ export class StockSelectorComponent implements OnInit {
     this.parent.get('selector')?.patchValue({//used to update a single control
       product_id:''
     });
-    
   }
-  /*get stockExists(){ //creates a property on the class called invalid to be used as a flag 
+  get stockExists(){ //creates a property on the class called invalid to be used as a flag 
     return (
       this.parent.hasError('stockExists') &&
       this.parent.get("selector.product_id")?.dirty
@@ -52,7 +51,8 @@ export class StockSelectorComponent implements OnInit {
     return (
       !this.parent.get('selector.product_id')?.value
       );
-  }*/
+  }
+  
   /*selectedItem($event){
     console.log($event);
   }*/

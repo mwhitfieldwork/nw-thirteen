@@ -19,8 +19,8 @@ interface Stock {
 export class InventoryComponent implements OnInit {
 
   constructor(private _productsService2: ProductStockService , 
-  private fb:FormBuilder) { }
-  products$!:Observable<Product[]>;
+  private fb:FormBuilder){ }
+  products$: Observable<Product[]> = this._productsService2.getProducts();
   errorMessage:string = '';
 
   form = this.fb.group({
@@ -28,12 +28,11 @@ export class InventoryComponent implements OnInit {
       branch:['', [Validators.required,StockValidators.checkBranch]] ,
       code:['', Validators.required] , 
     }),
-  //selector: this.createStock({}),
+  selector: this.createStock({product_id:0,quantity:10, name:'test'}),
   stock:this.fb.array([
     this.createStock({product_id:1,quantity:10, name:'test'}),
     this.createStock({product_id:2,quantity:20, name:'test'}),
   ])
-
   });
 
   createStock(stock:Stock){
@@ -45,21 +44,14 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProducts();
+
 
     /*this.form.get('stock').valueChanges.subscribe(stock => {
       console.log(stock);
     });*/    
   }
   
-  getProducts():Observable<Product[]>{
-    return this._productsService2.getProducts().pipe(
-      catchError(error => {
-        this.errorMessage = error;
-        return throwError(error);
-      })
-    );
-  }
+  
 
     addStock(value:Product){
       const control = this.form.get('stock') as FormArray;

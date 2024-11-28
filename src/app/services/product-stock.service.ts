@@ -1,34 +1,38 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, tap } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductStockService {
 
-  url: string = 'https://localhost:7216/Product/';
+  private apiUrl = 'https://localhost:7216';
 
-  nwDataChanged: BehaviorSubject<any>;
-
-  constructor(private _http: HttpClient) {
-    this.nwDataChanged = new BehaviorSubject([]);
-  }
+  constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
-    var response = this._http.get<Product[]>(this.url)
-      .pipe(
-        tap((value) => 
-        this.nwDataChanged.next(value))
-      )
-
-    return response
+    const url = `${this.apiUrl}/Product`;
+    return this.http.get<Product[]>(url).pipe(
+      tap((data) => console.log(data))
+    );
   }
 
-  private handleError(error: Response):void {
-    console.error(error);
-    //return Observable.throw(error || 'Server error');
+  getProduct(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.apiUrl}/products/${id}`);
+  }
+
+  /*updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.apiUrl}/products/${product.id}`, product);
+  }*/
+
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(`${this.apiUrl}/products`, product);
+  }
+
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/products/${id}`);
   }
 
 }
