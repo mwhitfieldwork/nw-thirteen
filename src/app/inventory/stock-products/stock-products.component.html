@@ -5,14 +5,17 @@
                 <div class="stock-product__name">
                     {{item.value.name}}
                 </div>
-                <input 
-                type="number"
-                step="10"
-                min="10"
-                max="100"
-                formControlName="quantity"
-                />
-                <button type="button" (click)="remove(item, i)">Remove</button>
+                <mat-form-field>
+                    <input 
+                    matInput
+                    type="number"
+                    step="10"
+                    min="10"
+                    max="100"
+                    formControlName="quantity"
+                    />
+                </mat-form-field>
+                <button mat-button type="button" (click)="remove(item, i)">Remove</button>
             </div>
         </div>
     </div>

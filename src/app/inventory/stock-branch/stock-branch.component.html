@@ -1,15 +1,22 @@
 <div [formGroup]="parent"> <!-- Passess the formGroup to the child component -->
     <div formGroupName="store" class="form-group">
-        <input type="text" formControlName="branch" placeholder="Branch ID">
-        <div class="error" *ngIf="required('branch')" >
+        <ng-content select="h1"></ng-content>
+        <mat-form-field>
+            <mat-label>Enter a Branch </mat-label>
+            <input matInput type="text" formControlName="branch" placeholder="Enter a Branch ">
+         </mat-form-field>
+         <div class="error" *ngIf="required('branch')" >
             The branch Id is required
         </div>
         <div class="error" *ngIf="invalid" >
             Invalid branch code: 1 letter 3 numbers
         </div>
-        <input type="text" formControlName="code" placeholder=" Manager Code">
-        <div class="error" *ngIf="required('code')">
-            The manager code is required
-        </div>
+        <mat-form-field>
+        <mat-label>Manager Code</mat-label>
+            <input matInput type="text" formControlName="code" placeholder=" ">
+            <div class="error" *ngIf="required('code')">
+                The manager code is required
+            </div>
+        </mat-form-field>
     </div>
 </div>

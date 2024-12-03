@@ -1,15 +1,15 @@
-<p>inventory works!</p>
-
 <div class="stock-inventory">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <app-stock-branch
         [parent]="form">
+        <h1>Branches</h1>
         </app-stock-branch>
 
         <app-stock-selector
         [parent]="form"
         [products$]="products$"
         (added)="addStock($event)">
+        <h1>Add More Stock</h1>
         </app-stock-selector>
 
         <app-stock-products
@@ -22,6 +22,6 @@
                 [disabled]="form.invalid" 
                 class="btn btn-primary">Order Stock</button>
         </div>
-        <pre>{{form.value | json}}</pre>
+        <!--<pre>{{form.value | json}}</pre>-->
     </form>
 </div>

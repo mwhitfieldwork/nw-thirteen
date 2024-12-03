@@ -20,6 +20,7 @@ export class InventoryComponent implements OnInit {
 
   constructor(private _productsService2: ProductStockService , 
   private fb:FormBuilder){ }
+  
   products$: Observable<Product[]> = this._productsService2.getProducts();
   errorMessage:string = '';
 
@@ -28,11 +29,14 @@ export class InventoryComponent implements OnInit {
       branch:['', [Validators.required,StockValidators.checkBranch]] ,
       code:['', Validators.required] , 
     }),
-  selector: this.createStock({product_id:0,quantity:10, name:'test'}),
-  stock:this.fb.array([
-    this.createStock({product_id:1,quantity:10, name:'test'}),
-    this.createStock({product_id:2,quantity:20, name:'test'}),
-  ])
+
+    selector: this.createStock({product_id:0,quantity:10, name:'test'}),
+
+    stock:this.fb.array([
+    this.createStock({product_id:1,quantity:10, name:'First item'}),
+    this.createStock({product_id:2,quantity:20, name:'Second item'}),
+    this.createStock({product_id:3,quantity:2000, name:'Third item'}),
+    ])
   });
 
   createStock(stock:Stock){
@@ -44,11 +48,9 @@ export class InventoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-    /*this.form.get('stock').valueChanges.subscribe(stock => {
+    this.form.get('stock')?.valueChanges.subscribe(stock => {
       console.log(stock);
-    });*/    
+    });    
   }
   
   
